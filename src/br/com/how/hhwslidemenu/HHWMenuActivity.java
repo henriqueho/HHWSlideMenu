@@ -10,56 +10,27 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
-public class HHWMenuActivity extends ActionBarActivity {
+public abstract class HHWMenuActivity extends ActionBarActivity {
 
 	public HHWSlideMenu slideMenu;
 
 	public ArrayList<HHWMenuItem> menuItems;
-
-	private void createMenu() {
-
-		if (SingletonMenu.getInstance().getMenuItems() == null) {
-
-			DefaultFragment fragment = new DefaultFragment();
-
-			menuItems = new ArrayList<HHWMenuItem>();
-
-			menuItems.add(new HHWMenuItem("Início", fragment, getResources()
-					.getDrawable(R.drawable.abc_btn_check_material)));
-			menuItems.add(new HHWMenuItem("Meus pontos", fragment
-					.newInstance("Meus pontos")));
-			menuItems.add(new HHWMenuItem("Minhas rotas", fragment
-					.newInstance("Minhas rotas")));
-
-			slideMenu = new HHWSlideMenu(this, menuItems);
-		} else {
-			slideMenu = new HHWSlideMenu(this, SingletonMenu.getInstance().getMenuItems());
-		}
-	}
-
-	public HHWMenuActivity() {
-		super();
-	}
-
-	public HHWMenuActivity(ArrayList<HHWMenuItem> menuItems) {
-		super();
-		SingletonMenu.getInstance().setMenuItems(menuItems);
-		this.menuItems = menuItems;
-	}
+	
+	protected abstract void createMenu();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_hhwmenu);
+		setContentView(R.layout.activity_hhw_menu);
 
 		hackyToResolveBugToShowActionBar();
-
-		createMenu();
-
+		
 		// enable ActionBar app icon to behave as action to toggle nav drawer
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setHomeButtonEnabled(true);
 		getSupportActionBar().setTitle(getString(R.string.app_name));
+		
+		createMenu();
 
 		// showTutorial();
 
@@ -108,7 +79,7 @@ public class HHWMenuActivity extends ActionBarActivity {
 	}
 
 	private void hackyToResolveBugToShowActionBar() {
-		RelativeLayout hacky = (RelativeLayout) findViewById(R.id.drawer_content);
+		RelativeLayout hacky = (RelativeLayout) findViewById(R.id.hhw_menu_drawer_content);
 		WindowManager.LayoutParams attrs = getWindow().getAttributes();
 		attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
 		getWindow().setAttributes(attrs);

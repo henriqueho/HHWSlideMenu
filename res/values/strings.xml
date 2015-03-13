@@ -3,9 +3,8 @@
 
     <string name="app_name">HhwSlideMenu</string>
     <!-- slide menu -->
-    <string name="drawer_open">open</string>
-    <string name="drawer_close">close</string>
+    <string name="hhw_menu_drawer_open">open</string>
+    <string name="hhw_menu_drawer_close">close</string>
     <string name="title_activity_hhwmenu">HHWMenuActivity</string>
-    <string name="hello_world">Hello world!</string>
 
 </resources>
